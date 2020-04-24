@@ -79,7 +79,7 @@ ser.isOpen()
 time.sleep(3)
 
 # Combine needed data into single String delimited by '~'
-data = nrw_cases + "~" + nrw_diff + "~" + nrw_deaths + "~" + de_cases + "~" + de_diff + "~" + de_deaths + "~" + title[0] + "~" + pubtime[0] + "~" + headline_mvt[0]
+data = nrw_cases + "~" + nrw_diff + "~" + nrw_deaths + "~" + de_cases + "~" + de_diff + "~" + de_deaths + "~" + title[0] + "~" + pubtime[0] + "~" + headline_mvt[0] + "~" + pubdate[0]
 print(data)
 
 

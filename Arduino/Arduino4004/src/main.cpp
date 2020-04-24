@@ -11,10 +11,23 @@ LiquidCrystal lcd(10, 8, 5, 4, 3, 2); // First two rows
 LiquidCrystal lcd2(10, 9, 5, 4, 3, 2); // Last two rows
 
 // Initialize needed Variables
-String header = "        ++++Corona News Blog++++        ";
+String header = "++++Corona News Blog++++";
 
-String nrw_cases, nrw_diff, nrw_deaths, de_cases, de_diff, de_deaths, title, pubtime, headline_mvt;
+String nrw_cases, nrw_diff, nrw_deaths, de_cases, de_diff, de_deaths, title, pubtime, headline_mvt, pubdate;
 String data;
+
+
+// Custom heart character. Made with https://maxpromer.github.io/LCD-Character-Creator/
+byte Heart[] = {
+  B00000,
+  B01010,
+  B11111,
+  B11111,
+  B01110,
+  B00100,
+  B00000,
+  B00000
+};
 
 // define LCD Size
 int lcdcol = 40;
@@ -69,6 +82,9 @@ void getData()
     title = getValue(data, '~', 6);
     pubtime = getValue(data, '~', 7);
     headline_mvt = getValue(data, '~', 8);
+    pubdate = getValue(data, '~', 9);
+
+
 
     // Merge publication time and title
     title = pubtime + " | " + title;
@@ -80,6 +96,7 @@ void getData()
 void print_cases()
 {
 
+    lcd2.clear();
     // Merge case description with case numbers
     nrw_cases = "NRW: " + nrw_cases;
     nrw_diff = "Diff.: " + nrw_diff;
@@ -116,6 +133,12 @@ void print_cases()
 
 }
 
+void write_header(){
+    lcd.setCursor(0,0);
+    lcd.print(header);
+    lcd.setCursor((lcdcol-pubdate.length()),0);
+    lcd.print(pubdate);
+}
 // Initialize the LCD and print start String
 void lcd_init()
 {
@@ -131,11 +154,38 @@ void lcd_init()
 // Print start screen 
 void lcd_start_screen(){
 
-    // Print start screen 
-    lcd.setCursor(0, 0);
+    // Print start screen
+    // Write headline in the middle of display
+    lcd.setCursor((40-header.length())/2, 0);
     lcd.print(header);
     lcd.setCursor(0,1);
     lcd.print("Warte auf Daten...");
+
+    String madeby[] = {"Made with ", " by:"};
+
+    // Create custom heart character 
+    lcd2.createChar(0, Heart);
+
+    // Write text in the middle of display
+    lcd2.setCursor((40-(madeby[0].length()+1+madeby[1].length()))/2,0);
+    lcd2.print(madeby[0]);
+    // Print custom Heart
+    lcd2.print(char(0));
+    lcd2.print(madeby[1]);
+
+    // Create name array
+    String names[]={"Lasse","Andy","Ole"};
+
+    // Calculate distance to equally space the names
+    int spaces = (40-(names[0].length() + names[1].length() + names[2].length()))/2;
+    
+    // Write names to the left, middle and right
+    lcd2.setCursor(0,1);
+    lcd2.print(names[0]);
+    lcd2.setCursor((names[0].length())+spaces,1);
+    lcd2.print(names[1]);
+    lcd2.setCursor((lcdcol-names[2].length()),1);
+    lcd2.print(names[2]);
 
 }
 
@@ -194,8 +244,7 @@ void display_data(String data)
             
             // Clear screen and print Headline
             lcd.clear();
-            lcd.setCursor(0, 0);
-            lcd.print(header);
+            write_header();
             lcd.setCursor(0, 1);
         }
     }
@@ -218,8 +267,8 @@ void setup()
 
     // Reprint Headline
     lcd.clear();
-    lcd.setCursor(0,0);
-    lcd.print(header);
+    lcd2.clear();
+    write_header();
     
     // Print case data
     print_cases();
