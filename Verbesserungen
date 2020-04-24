@@ -2,6 +2,9 @@ Programm parametrierbar machen (Argumente übergeben)
 
 Elemente per Tasten druck am Arduino durchgehen
 
+Nur eine Zeile Scrollen
+
 Datenüberprüfung nach Serieller übertragung
+
 
 Bug Die ersten beiden Chars werden beim Scroll überschrieben
