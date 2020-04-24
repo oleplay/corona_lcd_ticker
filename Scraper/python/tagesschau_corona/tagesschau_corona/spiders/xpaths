@@ -1,0 +1,36 @@
+
+HTML Version
+response.xpath("//span[@class='headline small']/text()")
+
+response.xpath('//div[@class="entrycontent"]//h4[@class="subtitle small entryhead"]/text()')
+
+response.xpath('//div[@class="entrycontent"]//p[@class="tickerdate small"]//em/text()')
+
+
+
+Meldungsarchiv
+
+response.xpath('//*[@id="content"]//div[@class = "linklist"]//ul[@class = "list"]//li')
+
+
+response.xpath('//*[@id="content"]//h2[text() = "365-Tage-Meldungsarchiv"]/..//ul[@class = "list"]//li') 
+
+
+response.xpath('//*[@id="content"]//h2[text() = "365-Tage-Meldungsarchiv"]/..//ul[@class = "list"]//li//a[@href]/text()').get()
+
+response.xpath('//*[@id="content"]//h2[text() = "365-Tage-Meldungsarchiv"]/..//ul[@class = "list"]//li//a[@href]/@href').get()
+
+//h2[text() = "365-Tage-Meldungsarchiv"]
+
+RSS Feed
+
+response.xpath('//channel/title/text()')
+
+response.xpath('//channel/title/text()')
+
+response.xpath('//channel//lastBuildDate/text()')
+
+
+posts = response.xpath('//channel/item') 
+
+.xpath('./title/text()').extract()
