@@ -12,6 +12,7 @@ LiquidCrystal lcd2(10, 9, 5, 4, 3, 2); // Last two rows
 
 // Initialize needed Variables
 String header = "++++Corona News Blog++++";
+String names[]= {"Lasse","Andy","Ole"};
 
 String nrw_cases, nrw_diff, nrw_deaths, de_cases, de_diff, de_deaths, title, pubtime, headline_mvt, pubdate;
 String data;
@@ -29,6 +30,27 @@ byte Heart[] = {
   B00000
 };
 
+byte diff[] = {
+  B00100,
+  B01110,
+  B10101,
+  B00100,
+  B00100,
+  B00100,
+  B00100,
+  B00100
+};
+
+byte death[] = {
+  B00100,
+  B00100,
+  B11111,
+  B00100,
+  B00100,
+  B00100,
+  B00100,
+  B00100
+};
 // define LCD Size
 int lcdcol = 40;
 int lcdrow = 2;
@@ -37,7 +59,8 @@ int position = 0;
 
 boolean ascroll = false;
 
-// Credit to https://arduino.stadckexchange.com/a/1237
+
+// Credit goes to https://arduino.stadckexchange.com/a/1237
 // Used to split String into multiple by using delimiter
 String getValue(String data, char separator, int index)
 {
@@ -99,36 +122,41 @@ void print_cases()
     lcd2.clear();
     // Merge case description with case numbers
     nrw_cases = "NRW: " + nrw_cases;
-    nrw_diff = "Diff.: " + nrw_diff;
-    nrw_deaths = "Tode: " + nrw_deaths;
+    nrw_diff = ": " + nrw_diff;
+    nrw_deaths = ": " + nrw_deaths;
 
     // calculate total String length and number of whitespaces needed
-    int len = nrw_cases.length() + nrw_diff.length() + nrw_deaths.length();
+    int len = nrw_cases.length() + nrw_diff.length()+1 + nrw_deaths.length()+1;
     int spaces = (40 - len) / 2;
 
     // Uniformly space the Strings and print to LCD
     lcd2.setCursor(0, 1);
     lcd2.print(nrw_cases);
-    lcd2.setCursor((nrw_cases.length() + spaces), 1);
+    lcd2.setCursor(((nrw_cases.length() +1)+ spaces), 1);
+    // Print Custom char
+    lcd2.print(char(1));
     lcd2.print(nrw_diff);
-    lcd2.setCursor(lcdcol - nrw_deaths.length(), 1);
+    lcd2.setCursor(lcdcol - (nrw_deaths.length()+1), 1);
+    lcd2.print(char(2));
     lcd2.print(nrw_deaths);
 
     // Merge case description with case numbers
     de_cases = "DE : " + de_cases;
-    de_diff = "Diff.: " + de_diff;
-    de_deaths = "Tode: " + de_deaths;
+    de_diff = ": " + de_diff;
+    de_deaths = ": " + de_deaths;
 
     // calculate total String length and number of whitespaces needed
-    len = de_cases.length() + de_diff.length() + de_deaths.length();
+    len = de_cases.length() + de_diff.length() +1 + de_deaths.length()+1 ;
     spaces = (40 - len) / 2;
 
     // Uniformly space the Strings and print to LCD
     lcd2.setCursor(0, 0);
     lcd2.print(de_cases);
-    lcd2.setCursor((de_cases.length() + spaces + 1), 0);
+    lcd2.setCursor(((de_cases.length() +1)+ spaces), 0);
+    lcd2.print(char(1));
     lcd2.print(de_diff);
-    lcd2.setCursor(lcdcol - de_deaths.length(), 0);
+    lcd2.setCursor(lcdcol - (de_deaths.length()+1), 0);
+    lcd2.print(char(2));
     lcd2.print(de_deaths);
 
 }
@@ -145,6 +173,11 @@ void lcd_init()
     // Define the LCD size
     lcd.begin(lcdcol, lcdrow);
     lcd2.begin(lcdcol, lcdrow);
+
+    // Create custom characters
+    lcd2.createChar(0,Heart);
+    lcd2.createChar(1, diff);
+    lcd2.createChar(2, death);
     
     // Clear both screens
     lcd.clear();
@@ -163,18 +196,17 @@ void lcd_start_screen(){
 
     String madeby[] = {"Made with ", " by:"};
 
-    // Create custom heart character 
-    lcd2.createChar(0, Heart);
+    
 
     // Write text in the middle of display
     lcd2.setCursor((40-(madeby[0].length()+1+madeby[1].length()))/2,0);
     lcd2.print(madeby[0]);
+
     // Print custom Heart
     lcd2.print(char(0));
     lcd2.print(madeby[1]);
 
-    // Create name array
-    String names[]={"Lasse","Andy","Ole"};
+    
 
     // Calculate distance to equally space the names
     int spaces = (40-(names[0].length() + names[1].length() + names[2].length()))/2;
@@ -220,7 +252,7 @@ void display_data(String data)
         // Delay printing of each character for better readability and looks
         delay(150);
 
-        // Enable autoscroll when end of LCD row was reached  
+        // Enable autoscroll when end of row was reached  
         if (position > lcdcol && ascroll == false)
         {
             lcd.autoscroll();
