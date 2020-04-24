@@ -64,7 +64,7 @@ with open((r'./Scraper/python/tagesschau_corona/current_articles '+today+".csv")
                         
 # Establish Serial connection
 ser = serial.Serial('COM4',9600) # Windows
-ser = serial.Serial('/dev/ttyACM0',9600) # Linux
+# ser = serial.Serial('/dev/ttyACM0',9600) # Linux
 
 # Check for opened serial port
 if ser.isOpen():
