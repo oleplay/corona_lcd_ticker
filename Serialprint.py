@@ -34,6 +34,7 @@ with open((r'./Scraper/python/tagesschau_corona/cases '+today+".csv"),newline=''
 
 # Open the current_articles file from corona_ticker scraper        
 with open((r'./Scraper/python/tagesschau_corona/current_articles '+today+".csv")) as csvfile:
+    
     # Parse csv file
     articles = csv.reader(csvfile, delimiter=";", quotechar='"')
     
@@ -51,11 +52,13 @@ with open((r'./Scraper/python/tagesschau_corona/current_articles '+today+".csv")
     
     # Extract data and append them to the specific array
     for row in articles:
+        
         headlines.append(row[0])
         
         # Split of the important part of the headline
         headline_mvt.append( str(row[0]).split("|")[1])
         # print (headline_mvt[0])
+        
         title.append(row[1])
         description.append(row[2])
         pubtime.append(row[3])
@@ -85,19 +88,4 @@ ser.write( (data + '\n').encode() )
 
 ser.close()
 
-
-
-
-# print (ser.readline())
-# time.sleep(0.1)
-
-# while ser.inWaiting
-# val = ser.readline
-# print (val)
-# if headlines[0] in str(val):
-    # print("ijdfiojio"
-        
-    
-
-# if out != '':
 
