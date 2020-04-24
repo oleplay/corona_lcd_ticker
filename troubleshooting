@@ -1,0 +1,5 @@
+pip install pySerial Scrapy
+
+sudo apt-get install libxslt-dev
+
+sudo dpkg-reconfigure locales --> en_US_utf8 und de_DE_utf8 auswählen

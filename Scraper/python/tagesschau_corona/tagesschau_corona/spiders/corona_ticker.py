@@ -77,9 +77,11 @@ class CoronaTickerSpider(scrapy.Spider):
             
             # Get post date and format it accordingly
             pub_date = (post.xpath('./pubDate/text()').extract_first())
-            locale.setlocale(locale.LC_ALL, 'en_US')
+            # locale.setlocale(locale.LC_ALL, 'en_US') #Windows
+            locale.setlocale(locale.LC_ALL, 'en_US.utf8') #Linux
             pub_date = datetime.datetime.strptime(pub_date, '%a, %d %b %Y %H:%M:%S %z')
-            locale.setlocale(locale.LC_ALL, 'de_DE')
+            # locale.setlocale(locale.LC_ALL, 'de_DE') # Windows
+            locale.setlocale(locale.LC_ALL, 'de_DE.utf8') #Linux
             
             pub_time = pub_date.strftime("%H:%M")
             pub_date = pub_date.strftime('%x')

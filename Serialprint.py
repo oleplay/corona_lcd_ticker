@@ -9,7 +9,7 @@ today = datetime.date.today().strftime("%d-%m-%Y")
 
 
 # Open the cases file from rki_corona scraper
-with open((r'.\Scraper\python\tagesschau_corona\cases '+today+".csv"),newline='') as csvfile:
+with open((r'./Scraper/python/tagesschau_corona/cases '+today+".csv"),newline='') as csvfile:
     
     # Parse csv file
     rki_cases  = csv.reader(csvfile, delimiter=";", quotechar='"')
@@ -33,7 +33,7 @@ with open((r'.\Scraper\python\tagesschau_corona\cases '+today+".csv"),newline=''
             # print (de_cases, de_diff)
 
 # Open the current_articles file from corona_ticker scraper        
-with open((r'.\Scraper\python\tagesschau_corona\current_articles '+today+".csv")) as csvfile:
+with open((r'./Scraper/python/tagesschau_corona/current_articles '+today+".csv")) as csvfile:
     # Parse csv file
     articles = csv.reader(csvfile, delimiter=";", quotechar='"')
     
@@ -63,7 +63,8 @@ with open((r'.\Scraper\python\tagesschau_corona\current_articles '+today+".csv")
                 
                         
 # Establish Serial connection
-ser = serial.Serial('COM4',9600) 
+ser = serial.Serial('COM4',9600) # Windows
+ser = serial.Serial('/dev/ttyACM0',9600) # Linux
 
 # Check for opened serial port
 if ser.isOpen():

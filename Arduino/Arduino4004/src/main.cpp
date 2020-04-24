@@ -14,7 +14,6 @@ String data;
 
 int lcdcol = 40;
 int lcdrow = 2;
-// char data[] = ("Das neue Coronavirus Sars-CoV-2 wird vor allem durch direkten Kontakt zwischen Menschen - beispielsweise im Gespräch - durch kleine Tröpfchen übertragen.");
 int position = 0;
 boolean ascroll = false;
 
