@@ -96,7 +96,13 @@ class CoronaTickerSpider(scrapy.Spider):
             if ((post.xpath('./description/text()').extract_first() is not None)):
                 
                 # Skip the closing entry
-                if(("beenden" in (post.xpath('./title/text()').extract_first()).lower() and "blog" in (post.xpath('./title/text()').extract_first()).lower())):
+                if(
+                (("beenden" in (post.xpath('./title/text()').extract_first()).lower()
+                or
+                "ende" in (post.xpath('./title/text()').extract_first()).lower())
+                and
+                "blog" in (post.xpath('./title/text()').extract_first()).lower()
+                )):
                     continue
                 
                 description = post.xpath('./description/text()').extract_first()
