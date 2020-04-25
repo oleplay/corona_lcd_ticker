@@ -4,6 +4,8 @@ import time
 import csv
 import datetime
 import platform
+import os
+import serial.tools.list_ports
 
 # Get current date as (30-04-2020)
 today = datetime.date.today().strftime("%d-%m-%Y")
@@ -69,13 +71,34 @@ with open((r'./Scraper/python/tagesschau_corona/current_articles '+today+".csv")
 # Establish Serial connection
 # Check if running under *nix OS (Linux etc.)
 if('nix' in platform.system() or 'nux' in platform.system()):
-    ser = serial.Serial('/dev/ttyACM0',9600) # Linux
+    
+    # Arduino Pro Micro workaround
+    # Pro Micro does not reset on Serial connection which is required by our code.
+    
+    # ser = serial.Serial('/dev/ttyACM1',1200)
+    # ser.close()
+    # time.sleep(3)
+    
+    # Wait until Serial port is available/existing 
+    while not os.path.exists('/dev/ttyACM1'):
+        time.sleep(1)
+    ser = serial.Serial('/dev/ttyACM1',9600) # Linux
     
 else:
-    ser = serial.Serial('COM4',9600) # Windows
-# 
+    
+    # Arduino Pro Micro workaround
+    
+    # ser = serial.Serial('COM6',1200)
+    # ser.close()
+    # time.sleep(3)
+    
+    # Wait until Serial port is available/existing
+    while not os.path.exists('COM6'):
+        time.sleep(1)
+    ser = serial.Serial('COM6',9600) # Windows
 
-# Check for opened serial port
+
+# Check for opened serial port and close if open
 if ser.isOpen():
     ser.close()
 
