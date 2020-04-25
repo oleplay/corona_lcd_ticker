@@ -7,8 +7,8 @@
 
 // Init LCD Objects
 // Two are needed because an 40x04 LCD utilizes two LCD Controller, one for 2 Rows
-LiquidCrystal lcd(10, 8, 5, 4, 3, 2); // First two rows
-LiquidCrystal lcd2(10, 9, 5, 4, 3, 2); // Last two rows
+LiquidCrystal lcd(9, 7, 5, 4, 3, 2); // First two rows
+LiquidCrystal lcd2(9, 8, 5, 4, 3, 2); // Last two rows
 
 // Initialize needed Variables
 String header = "++++Corona News Blog++++";
