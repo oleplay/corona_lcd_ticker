@@ -68,7 +68,7 @@ with open((r'./Scraper/python/tagesschau_corona/current_articles '+today+".csv")
                         
 # Establish Serial connection
 # Check if running under *nix OS (Linux etc.)
-if('nix' in platform.system()):
+if('nix' in platform.system() or 'nux' in platform.system()):
     ser = serial.Serial('/dev/ttyACM0',9600) # Linux
     
 else:
