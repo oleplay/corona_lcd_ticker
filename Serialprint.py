@@ -7,7 +7,7 @@ import platform
 import os
 import serial.tools.list_ports
 
-# Get current date as (30-04-2020)
+# Get current date as (ex. 30-04-2020)
 today = datetime.date.today().strftime("%d-%m-%Y")
 
 

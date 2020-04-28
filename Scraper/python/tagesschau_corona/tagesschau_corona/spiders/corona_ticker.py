@@ -57,7 +57,7 @@ class CoronaTickerSpider(scrapy.Spider):
             # self.logger.info(href + href_text)
             
             # Check if selected article is the liveblog
-            if("corona" in href.lower() and "blog" in href_text.lower()):
+            if(("corona" in href.lower() or "coroan" in href.lower()) and "blog" in href_text.lower()):
                 
                 # Replace the html version with the rssfeed and call the parse_blog function 
                 yield scrapy.Request(href.replace(".html", "~rss2feed.xml"), callback = self.parse_blog)
