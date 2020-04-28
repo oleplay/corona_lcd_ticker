@@ -38,7 +38,7 @@ class RkiCoronaSpider(scrapy.Spider):
                 if ("Gesamt" in line.xpath('.//td[1]/strong/text()').get()): # Confirm egde case
                     name = line.xpath('.//td[1]/strong/text()').get()
                     cases = line.xpath('.//td[2]/strong/text()').get()
-                    diff = (line.xpath('.//td[3]/strong/text()').get()).replace('+','')
+                    diff = (line.xpath('.//td[3]/strong/text()').get())
                     cases_100 = line.xpath('.//td[4]/strong/text()').get()
                     deaths = line.xpath('.//td[5]/strong/text()').get()
             else:
@@ -51,7 +51,7 @@ class RkiCoronaSpider(scrapy.Spider):
                     
                 
                 cases = line.xpath('.//td[2]/text()').get()
-                diff = (line.xpath('.//td[3]/text()').get()).replace('+','')
+                diff = (line.xpath('.//td[3]/text()').get())
                 cases_100 = line.xpath('.//td[4]/text()').get()
                 deaths = line.xpath('.//td[5]/text()').get()
                 
