@@ -132,7 +132,7 @@ void print_cases()
     // Uniformly space the Strings and print to LCD
     lcd2.setCursor(0, 1);
     lcd2.print(nrw_cases);
-    lcd2.setCursor(((nrw_cases.length() +1)+ spaces), 1);
+    lcd2.setCursor(((nrw_cases.length() +1)+ spaces)-1, 1);
     // Print Custom char
     lcd2.print(char(1));
     lcd2.print(nrw_diff);
