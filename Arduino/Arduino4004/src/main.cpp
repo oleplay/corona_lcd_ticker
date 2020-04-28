@@ -17,8 +17,7 @@ String names[]= {"Lasse","Andy","Ole"};
 String nrw_cases, nrw_diff, nrw_deaths, de_cases, de_diff, de_deaths, title, pubtime, headline_mvt, pubdate, lastupdate;
 String data;
 
-
-// Custom heart character. Made with https://maxpromer.github.io/LCD-Character-Creator/
+// Custom characters. Made with https://maxpromer.github.io/LCD-Character-Creator/
 byte Heart[] = {
   B00000,
   B01010,
@@ -51,6 +50,7 @@ byte death[] = {
   B00100,
   B00100
 };
+
 // define LCD Size
 int lcdcol = 40;
 int lcdrow = 2;
@@ -82,7 +82,7 @@ String getValue(String data, char separator, int index)
     return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
 }
 
-// Read needed data over Serial
+// Get data over Serial
 void getData()
 {
     // Wait for serial availability
@@ -112,6 +112,7 @@ void getData()
 
     // Merge publication time and title
     title = pubtime + " | " + title;
+    // Mere Date and last update time
     lastupdate = pubdate + ' '+ lastupdate;
 
 }
@@ -149,13 +150,14 @@ void print_cases()
     de_deaths = ": " + de_deaths;
 
     // calculate total String length and number of whitespaces needed
-    len = de_cases.length() + de_diff.length() +1 + de_deaths.length()+1 ;
-    spaces = (40 - len) / 2;
+
+    // len = de_cases.length() + de_diff.length() +1 + de_deaths.length()+1 ;
+    // spaces = (40 - len) / 2;
 
     // Uniformly space the Strings and print to LCD
     lcd2.setCursor(0, 0);
     lcd2.print(de_cases);
-    // Equally Place diff in the middle
+    // Equally Place diff in the middle based on Position off NRW Diff
     lcd2.setCursor(diff_cursor_pos, 0);
     // lcd2.setCursor(((de_cases.length() +1)+ spaces), 0);
     lcd2.print(char(1));
@@ -166,6 +168,7 @@ void print_cases()
 
 }
 
+// Print Header, Date and time
 void write_header(){
     lcd.setCursor(0,0);
     lcd.print(header);
@@ -287,7 +290,7 @@ void display_data(String data)
     }
 }
 
-// Executed on startup
+// Executed on startup and reset --> Executed on every serial connect
 void setup()
 {
     // Open serial port with 9600 Baud
