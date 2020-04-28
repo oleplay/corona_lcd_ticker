@@ -11,10 +11,10 @@ LiquidCrystal lcd(9, 7, 5, 4, 3, 2); // First two rows
 LiquidCrystal lcd2(9, 8, 5, 4, 3, 2); // Last two rows
 
 // Initialize needed Variables
-String header = "++++Corona News Blog++++";
+String header = "+++Corona News Blog+++";
 String names[]= {"Lasse","Andy","Ole"};
 
-String nrw_cases, nrw_diff, nrw_deaths, de_cases, de_diff, de_deaths, title, pubtime, headline_mvt, pubdate;
+String nrw_cases, nrw_diff, nrw_deaths, de_cases, de_diff, de_deaths, title, pubtime, headline_mvt, pubdate, lastupdate;
 String data;
 
 
@@ -106,11 +106,13 @@ void getData()
     pubtime = getValue(data, '~', 7);
     headline_mvt = getValue(data, '~', 8);
     pubdate = getValue(data, '~', 9);
+    lastupdate = getValue(data, '~', 10);
 
 
 
     // Merge publication time and title
     title = pubtime + " | " + title;
+    lastupdate = pubdate + ' '+ lastupdate;
 
 }
 
@@ -132,7 +134,8 @@ void print_cases()
     // Uniformly space the Strings and print to LCD
     lcd2.setCursor(0, 1);
     lcd2.print(nrw_cases);
-    lcd2.setCursor(((nrw_cases.length() +1)+ spaces)-1, 1);
+    int diff_cursor_pos = ((nrw_cases.length() +1)+ spaces);
+    lcd2.setCursor(diff_cursor_pos, 1);
     // Print Custom char
     lcd2.print(char(1));
     lcd2.print(nrw_diff);
@@ -152,7 +155,9 @@ void print_cases()
     // Uniformly space the Strings and print to LCD
     lcd2.setCursor(0, 0);
     lcd2.print(de_cases);
-    lcd2.setCursor(((de_cases.length() +1)+ spaces), 0);
+    // Equally Place diff in the middle
+    lcd2.setCursor(diff_cursor_pos, 0);
+    // lcd2.setCursor(((de_cases.length() +1)+ spaces), 0);
     lcd2.print(char(1));
     lcd2.print(de_diff);
     lcd2.setCursor(lcdcol - (de_deaths.length()+1), 0);
@@ -164,8 +169,8 @@ void print_cases()
 void write_header(){
     lcd.setCursor(0,0);
     lcd.print(header);
-    lcd.setCursor((lcdcol-pubdate.length()),0);
-    lcd.print(pubdate);
+    lcd.setCursor((lcdcol-lastupdate.length()),0);
+    lcd.print(lastupdate);
 }
 // Initialize the LCD and print start String
 void lcd_init()

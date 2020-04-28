@@ -80,9 +80,9 @@ if('nix' in platform.system() or 'nux' in platform.system()):
     # time.sleep(3)
     
     # Wait until Serial port is available/existing 
-    while not os.path.exists('/dev/ttyACM1'):
+    while not os.path.exists('/dev/ttyUSB0'):
         time.sleep(1)
-    ser = serial.Serial('/dev/ttyACM1',9600) # Linux
+    ser = serial.Serial('/dev/ttyUSB0',9600) # Linux
     
 else:
     
@@ -107,8 +107,10 @@ ser.open()
 ser.isOpen()
 time.sleep(3)
 
+# Get Current time to show last update time
+lastupdate = datetime.datetime.now().strftime("%H:%M")
 # Combine needed data into single String delimited by '~'
-data = nrw_cases + "~" + nrw_diff + "~" + nrw_deaths + "~" + de_cases + "~" + de_diff + "~" + de_deaths + "~" + title[0] + "~" + pubtime[0] + "~" + headline_mvt[0] + "~" + pubdate[0]
+data = nrw_cases + "~" + nrw_diff + "~" + nrw_deaths + "~" + de_cases + "~" + de_diff + "~" + de_deaths + "~" + title[0] + "~" + pubtime[0] + "~" + headline_mvt[0] + "~" + pubdate[0] + '~' + lastupdate
 print(data)
 
 
