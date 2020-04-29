@@ -60,7 +60,7 @@ int position = 0;
 boolean ascroll = false;
 
 
-// Credit goes to https://arduino.stadckexchange.com/a/1237
+// Credit goes to https://arduino.stackexchange.com/a/1237
 // Used to split String into multiple by using delimiter
 String getValue(String data, char separator, int index)
 {
