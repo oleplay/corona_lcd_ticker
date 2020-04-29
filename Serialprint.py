@@ -47,6 +47,7 @@ with open((r'./Scraper/python/tagesschau_corona/current_articles '+today+".csv")
     
     # Create needed Arrays
     headlines = []
+        # Headline of complete Liveblog
     headline_mvt = []
     title = []
     description=[]
@@ -70,7 +71,7 @@ with open((r'./Scraper/python/tagesschau_corona/current_articles '+today+".csv")
                         
 # Establish Serial connection
 # Check if running under *nix OS (Linux etc.)
-if('nix' in platform.system() or 'nux' in platform.system()):
+if(('nix' or 'nux' )in platform.system()):
     
     # Arduino Pro Micro workaround
     # Pro Micro does not reset on Serial connection which is required by our code.
@@ -111,12 +112,11 @@ time.sleep(3)
 lastupdate = datetime.datetime.now().strftime("%H:%M")
 # Combine needed data into single String delimited by '~'
 data = nrw_cases + "~" + nrw_diff + "~" + nrw_deaths + "~" + de_cases + "~" + de_diff + "~" + de_deaths + "~" + title[0] + "~" + pubtime[0] + "~" + headline_mvt[0] + "~" + pubdate[0] + '~' + lastupdate
-print(data)
-
 
 # Send data to Arduino over serial
 ser.write( (data + '\n').encode() )
 
+# Close serial Port
 ser.close()
 
 

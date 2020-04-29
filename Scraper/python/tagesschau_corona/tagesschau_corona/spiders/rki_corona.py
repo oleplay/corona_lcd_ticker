@@ -35,7 +35,7 @@ class RkiCoronaSpider(scrapy.Spider):
             
             
             if not (line.xpath('.//td[1]/text()').extract()): # Check for "Gesamt" Edge case. Because there text is written in "Strong" tags
-                if ("Gesamt" in line.xpath('.//td[1]/strong/text()').get()): # Confirm egde case
+                if ("Gesamt" in line.xpath('.//td[1]/strong/text()').get()): # Confirm edge case
                     name = line.xpath('.//td[1]/strong/text()').get()
                     cases = line.xpath('.//td[2]/strong/text()').get()
                     diff = (line.xpath('.//td[3]/strong/text()').get())
@@ -59,12 +59,15 @@ class RkiCoronaSpider(scrapy.Spider):
                 update = response.xpath('//div[@id="content"]//div[@class = "dateOfIssue"]//p/text()')[2].get()
                 update = update.replace("Stand: ", '')
             
-                # Check death counter for point (NRW wasnt delimited by point)
+                # Check death counter for point (NRW is not delimited by point)
                 deaths_no_point = deaths.replace('.','')
+                
                 if (int(deaths_no_point) > 1000 and not('.' in deaths)):
+                    # Extract last 3 Digits from deaths
                     last=deaths[-3:]
-                    self.logger.info(last)
+                    # Combine Digits after last 3, dot and last 3 digits
                     deaths = deaths[0:(len(deaths)-3)]+'.'+last
+
                 
             # Export data while replacing all "Umlaute"
             yield {
