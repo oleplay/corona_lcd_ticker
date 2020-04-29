@@ -56,7 +56,7 @@ class CoronaTickerSpider(scrapy.Spider):
             
             # self.logger.info(href + href_text)
             
-            # Check if selected article is the liveblog
+            # Check if selected article is the liveblog and check for misspelling
             if(("corona" or "coroan" in href.lower()) and "blog" in href_text.lower()):
                 
                 # Replace the html version with the rssfeed and call the parse_blog function 
