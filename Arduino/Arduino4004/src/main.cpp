@@ -112,7 +112,7 @@ void getData()
 
     // Merge publication time and title
     title = pubtime + " | " + title;
-    // Mere Date and last update time
+    // Merge Date and last update time
     lastupdate = pubdate + ' '+ lastupdate;
 
 }

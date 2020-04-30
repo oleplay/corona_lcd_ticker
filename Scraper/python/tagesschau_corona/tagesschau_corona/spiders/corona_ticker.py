@@ -80,7 +80,8 @@ class CoronaTickerSpider(scrapy.Spider):
             
             pub_date = datetime.datetime.strptime(pub_date, '%a, %d %b %Y %H:%M:%S %z')
             
-            # Scraping locale idea to complicated on *nix Systems
+            # Scraping locale idea to complicated to Setup on *nix Systems
+            
             # locale.setlocale(locale.LC_ALL, 'en_US') #Windows
             # locale.setlocale(locale.LC_ALL, 'en_US.utf8') #Linux
             
